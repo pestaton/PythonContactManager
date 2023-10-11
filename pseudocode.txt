@@ -25,10 +25,32 @@ PSEUDO CODE:
 
 3- Implement functions for each operation (e.g., `add_contact()`, `search_contact()`, etc.)
 
-There will be four input functions that can be called: add_contact(), search_contact(), remove_contact(), and edit_contact()
+There will be four input functions that can be called: add_contact(), search_contact(), remove_contact(), and edit_contact(). 
+The input and output variables for the most part be strings or dictionaries
 
+add_contact() 
+##### Bryan, please finalize this section as it will help Shuniya with the data storage/handling
+1. Ask the user to input the contact name. 
 
+2. Ask the user to input phone number.
 
+3. Ask the user to input email.
 
+4. The above information is stored as a variable/dictionary, then it is added to the contacts file. 
+
+search_contact()
+1. 
+
+2.
+
+remove_contact()
+1. 
+
+2.
+
+edit_contact()
+1.
+
+2.
 
 4- Use exception handling for potential issues like the file not existing or invalid inputs.
