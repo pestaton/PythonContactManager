@@ -1,0 +1,2 @@
+The aim of this document is to help us be on the same page while we are coding this project. This pseudo code should breifly
+outline the logic of the program and allow us tobring the various sections together in a coherent manner.
