@@ -14,3 +14,8 @@ PROJECT DESCRIPTION: **Contact Manager**:
         - Implement functions for each operation (e.g., `add_contact()`, `search_contact()`, etc.)
 
         - Use exception handling for potential issues like the file not existing or invalid inputs.
+
+
+PSEUDO CODE:
+
+
