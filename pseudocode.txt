@@ -28,7 +28,7 @@ PSEUDO CODE:
 There will be four input functions that can be called: add_contact(), search_contact(), remove_contact(), and edit_contact(). 
 The input and output variables for the most part be strings or dictionaries
 
-add_contact() 
+
 ##### Bryan, please finalize this section as it will help Shuniya with the data storage/handling
 1. Ask the user to input the contact name. 
 
@@ -37,6 +37,70 @@ add_contact()
 3. Ask the user to input email.
 
 4. The above information is stored as a variable/dictionary, then it is added to the contacts file. 
+
+add_contact()
+
+import os
+
+def add_contact():
+
+    #Clear screen on function activation. (will be repeated throughout code for a clean user interface)
+
+    os.system('cls')
+
+    #Declaring global variables so that they can be utilized in other functions as well as this one.
+
+    global contact_dict
+    global correct_input
+    global name
+    global phone
+    global email
+
+    #Collects user data.
+
+    os.system('cls')
+
+    name = input("Enter Name: ")
+
+    os.system('cls')
+
+    phone = input("Enter Phone Number: ")
+
+    os.system('cls')
+
+    email = input("Enter Email: ")
+
+    #Here needs to be a check for impropper input. Something like this 
+    # if (email,phone,name) != (correct layout of inputs):
+    #   (email,phone,name) = input("Invalid Input Please Reenter (email,phone,name)")
+
+    #Confirms correct information was entered.
+
+    os.system('cls')
+
+    print (f"You entered. Phone number: "+ phone +", Name: "+ name +", Email: "+ email +".")
+
+    correct_input = input("Is this information correct? Y or N? ")
+
+    #Here needs to be a check for correct input and a exception handler for incorrect inputs.
+
+    #Save to dict if Information is correct. 
+
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+
+        print("Saving information to Contacts...")
+
+        contact_dict = {"name": name, "phone": phone, "email": email}
+
+    #Here you would save the info to a file, which I believe Shuniya volunteered to do.
+
+    #Below function works to go through the function again if incorrect information is entered.
+
+    else:
+        
+        add_contact()
 
 search_contact()
 1. 
