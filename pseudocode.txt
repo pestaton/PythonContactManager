@@ -7,17 +7,28 @@ PROJECT DESCRIPTION: **Contact Manager**:
 
     - Features:
 
-        - Allow the user to add, remove, search, and edit contacts.
+        1- Allow the user to add, remove, search, and edit contacts.
 
-        - Store contacts in a file and load them at the start of the program.
+        2- Store contacts in a file and load them at the start of the program.
 
-        - Implement functions for each operation (e.g., `add_contact()`, `search_contact()`, etc.)
+        3- Implement functions for each operation (e.g., `add_contact()`, `search_contact()`, etc.)
 
-        - Use exception handling for potential issues like the file not existing or invalid inputs.
+        4- Use exception handling for potential issues like the file not existing or invalid inputs.
 
 
 PSEUDO CODE:
 
-Test push
+2- Store contacts in a file and load them at the start of the program.
 
 
+
+
+3- Implement functions for each operation (e.g., `add_contact()`, `search_contact()`, etc.)
+
+There will be four input functions that can be called: add_contact(), search_contact(), remove_contact(), and edit_contact()
+
+
+
+
+
+4- Use exception handling for potential issues like the file not existing or invalid inputs.
