@@ -1,2 +1,16 @@
 The aim of this document is to help us be on the same page while we are coding this project. This pseudo code should breifly
 outline the logic of the program and allow us tobring the various sections together in a coherent manner.
+
+PROJECT DESCRIPTION: **Contact Manager**:
+
+    - Description: Develop a program to manage a list of contacts, each with a name, phone number, and email.
+
+    - Features:
+
+        - Allow the user to add, remove, search, and edit contacts.
+
+        - Store contacts in a file and load them at the start of the program.
+
+        - Implement functions for each operation (e.g., `add_contact()`, `search_contact()`, etc.)
+
+        - Use exception handling for potential issues like the file not existing or invalid inputs.
