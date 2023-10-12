@@ -73,7 +73,27 @@ input_name()
 
     os.system('cls')
 
-    phone = input("Enter Phone Number: ")
+def input_phone():
+    
+    global phone
+    phone = input("Enter your phone number: ")
+    no_hyphen = phone.replace("-", "")
+    print(no_hyphen)
+    ##checks to see if only digits and hyphens were entered.
+    if no_hyphen.isdigit() and len(no_hyphen) == 10:
+        ##reformatting of the phone number
+        first_three = no_hyphen[0] + no_hyphen[1] + no_hyphen[2]
+        second_three = no_hyphen[3] + no_hyphen[4] + no_hyphen[5]
+        last_four = no_hyphen[6] + no_hyphen[7] + no_hyphen[8] + no_hyphen[9]
+        phone = first_three + "-" + second_three + "-" + last_four
+
+        print("Your number is: " + phone)
+    else:
+        print("Invalid phone number. Please, use the following format: 123-456-7890")
+        input_phone()
+##call input_phone()
+input_phone()
+
 
     os.system('cls')
 
