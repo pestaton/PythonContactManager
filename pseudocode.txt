@@ -60,7 +60,16 @@ def add_contact():
 
     os.system('cls')
 
+    def input_name():
+    global name 
     name = input("Enter Name: ")
+    if name.replace(" ", "").isalpha():
+        print("Hello, " + name)
+    else:
+        print("Invalid name. Please, use only letters and spaces (e.g. John Doe)")
+        input_name()
+##call input_name()
+input_name()
 
     os.system('cls')
 
