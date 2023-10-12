@@ -19,7 +19,7 @@ PROJECT DESCRIPTION: **Contact Manager**:
 PSEUDO CODE:
 
 2- Store contacts in a file and load them at the start of the program.
-
+contact=open('contacts.txt','a')
 
 
 
@@ -95,7 +95,7 @@ def add_contact():
         contact_dict = {"name": name, "phone": phone, "email": email}
 
     #Here you would save the info to a file, which I believe Shuniya volunteered to do.
-
+contact.write(input)
     #Below function works to go through the function again if incorrect information is entered.
 
     else:
