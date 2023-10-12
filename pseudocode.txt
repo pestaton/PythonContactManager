@@ -59,15 +59,15 @@ def add_contact():
     #Collects user data.
 
     os.system('cls')
-
+## input_name() function gets the user's name and checks if only letters and spaces are in the name.
     def input_name():
-    global name 
-    name = input("Enter Name: ")
-    if name.replace(" ", "").isalpha():
-        print("Hello, " + name)
-    else:
-        print("Invalid name. Please, use only letters and spaces (e.g. John Doe)")
-        input_name()
+        global name 
+        name = input("Enter Name: ")
+        if name.replace(" ", "").isalpha():
+            print("Hello, " + name)
+        else:
+            print("Invalid name. Please, use only letters and spaces (e.g. John Doe)")
+            input_name()
 ##call input_name()
 input_name()
 
