@@ -97,7 +97,20 @@ input_phone()
 
     os.system('cls')
 
-    email = input("Enter Email: ")
+def input_email():
+    
+    global email
+    email = input("Enter your email: ")
+    if email.count("@") == 1:
+        if email.count(".") < 1:
+            print("Invalid email. Please check that your email is typed in correctly. The email requires at least one period.")
+            input_email()
+    else:
+        print("Invalid email. Please check that your email is typed in correctly. The email requires a single amperstand.")
+        input_email()
+
+input_email()
+
 
     #Here needs to be a check for impropper input. Something like this 
     # if (email,phone,name) != (correct layout of inputs):
