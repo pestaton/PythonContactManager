@@ -82,10 +82,7 @@ def input_phone():
     ##checks to see if only digits and hyphens were entered.
     if no_hyphen.isdigit() and len(no_hyphen) == 10:
         ##reformatting of the phone number
-        first_three = no_hyphen[0] + no_hyphen[1] + no_hyphen[2]
-        second_three = no_hyphen[3] + no_hyphen[4] + no_hyphen[5]
-        last_four = no_hyphen[6] + no_hyphen[7] + no_hyphen[8] + no_hyphen[9]
-        phone = first_three + "-" + second_three + "-" + last_four
+        phone = no_hyphen[0] + no_hyphen[1] + no_hyphen[2] + "-" + no_hyphen[3] + no_hyphen[4] + no_hyphen[5] + "-" + no_hyphen[6] + no_hyphen[7] + no_hyphen[8] + no_hyphen[9]
 
         print("Your number is: " + phone)
     else:
