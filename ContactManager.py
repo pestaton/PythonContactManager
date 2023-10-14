@@ -1,5 +1,343 @@
 ## Main main executable code for the contact manager program.
 
-print("Testing, testing, 1, 2, 3!")
+
+from Add_Contact_Feature import add_contact
+from Search_Contact_Feature import search_contact
+from Edit_Contact_Feature import edit_contact
+from Remove_Contact_Feature import remove_contact
+import os
+
+def home_screen():
+
+    global home_selection_choice
+
+    os.system('cls')
+
+    home_selection_choice = input("""Welcome to Contact Manager    
+    
+    Add Contact (1)
+    Search Contact (2)
+    Edit Contact (3)
+    Remove Contact (4)
+    Exit (5)
+
+    """)
+
+    if home_selection_choice == '1':
+        
+        add_contact()
+
+        home_screen()
+
+    if home_selection_choice == '2':
+
+        search_contact()
+
+        home_screen()
+
+    if home_selection_choice == '3':
+
+        edit_contact()
+
+        home_screen()
+
+    if home_selection_choice == '4':
+
+        remove_contact()
+
+        home_screen()
+
+    if home_selection_choice == '5':
+
+        exit()
+
+    #Here needs to be exception for improper input.
 
 
+home_screen()
+
+
+
+def add_contact():
+
+    #Clear screen on function activation. (will be repeated throughout code for a clean user interface)
+
+    os.system('cls')
+
+    #Declaring global variables so that they can be utilized in other functions as well as this one.
+
+    global contact_dict
+    global correct_input
+    global name
+    global phone
+    global email
+
+    #Collects user data.
+
+    os.system('cls')
+## input_name() function gets the user's name and checks if only letters and spaces are in the name.
+    def input_name():
+        global name 
+        name = input("Enter Name: ")
+        if name.replace(" ", "").isalpha():
+            print("Hello, " + name)
+        else:
+            print("Invalid name. Please, use only letters and spaces (e.g. John Doe)")
+            input_name()
+##call input_name()
+input_name()
+
+    os.system('cls')
+
+def input_phone():
+    
+    global phone
+    phone = input("Enter your phone number: ")
+    no_hyphen = phone.replace("-", "")
+    print(no_hyphen)
+    ##checks to see if only digits and hyphens were entered.
+    if no_hyphen.isdigit() and len(no_hyphen) == 10:
+        ##reformatting of the phone number
+        phone = no_hyphen[0] + no_hyphen[1] + no_hyphen[2] + "-" + no_hyphen[3] + no_hyphen[4] + no_hyphen[5] + "-" + no_hyphen[6] + no_hyphen[7] + no_hyphen[8] + no_hyphen[9]
+
+        print("Your number is: " + phone)
+    else:
+        print("Invalid phone number. Please, use the following format: 123-456-7890")
+        input_phone()
+##call input_phone()
+input_phone()
+
+
+    os.system('cls')
+
+def input_email():
+    
+    global email
+    email = input("Enter your email: ")
+    if email.count("@") == 1:
+        if email.count(".") < 1:
+            print("Invalid email. Please check that your email is typed in correctly. The email requires at least one period.")
+            input_email()
+    else:
+        print("Invalid email. Please check that your email is typed in correctly. The email requires a single amperstand.")
+        input_email()
+
+input_email()
+
+
+    #Here needs to be a check for impropper input. Something like this 
+    # if (email,phone,name) != (correct layout of inputs):
+    #   (email,phone,name) = input("Invalid Input Please Reenter (email,phone,name)")
+
+    #Confirms correct information was entered.
+
+    os.system('cls')
+
+    print (f"You entered. Phone number: "+ phone +", Name: "+ name +", Email: "+ email +".")
+
+    correct_input = input("Is this information correct? Y or N? ")
+
+    #Here needs to be a check for correct input and a exception handler for incorrect inputs.
+
+    #Save to dict if Information is correct. 
+
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+
+        print("Saving information to Contacts...")
+
+        contact_dict = {"name": name, "phone": phone, "email": email}
+
+        input("Press Enter to Return the Home Screen.")
+
+    #Here you would save the info to a file, which I believe Shuniya volunteered to do.
+contact.write(input)
+    #Below function works to go through the function again if incorrect information is entered.
+
+    else:
+        
+        add_contact()
+
+
+#Some preemptive comments to this sections of code!! *** IMPORTANT *** Since Shuniya is doing the file saving and loading, 
+#the amount of work I can do on this function is relatively limited. Wether we choose to save contacts as individual text files or not will change how this code will run.
+#For purposes of getting this function done I will use placeholder file names and the assumption that individual text files will be created for each contact.
+
+def search_contact():
+
+    os.system('cls')
+
+    global contact_search
+    global contact_file
+    global search_again
+
+    contact_search = input("Enter Contact Name: ")
+    
+    #Validate Input
+
+    os.system('cls')    
+
+    correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
+        
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+        
+        contact_file = open(+contact_search+".txt", "r")
+        
+        print(contact_file.read())
+
+        contact_file.close()
+
+        search_again = input("Do you wish to search for another contact? Y or N? ")
+
+        if correct_input == ("Y" or "y" or "Yes" or "yes"):
+
+            search_contact()
+
+        else:
+
+            input("Press Enter to Return to Home Screen.")
+
+    else:
+        search_contact()
+
+
+def edit_contact():
+
+    global contact_file_edit
+    global contact_search
+    global correct_input
+    global change_contact
+
+    os.system('cls')
+
+    contact_search = input("Please Enter the Name of Contact you Wish to Edit: ")
+    
+    #Validate input
+
+    os.system('cls')    
+
+    correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
+
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+
+        contact_file_edit = open(+contact_search+".txt","r")
+
+        #Cannot figure out how to make it open the file in a way where individual parts of the dictionary can be edited.
+
+                #I was thinking that if on the home screen we only give the user the options of ADD CONTACT, SEARCH CONTACT, and EXIT. Then if the user selects
+                SEARCH CONTACT the program will find that string for the contact and save it as three variables: NAME, EMAIL, PHONENUMBER (these variable names are for exaple purposes).
+                After the contact is found and displayed to the user, then the user can be given the option to EDIT CONTACT or REMOVE CONTACT. The cantact variables can be used
+                for the EDIT CONTACT function.
+
+                #The next part depends on if the contacts are store as individual .txt files or as a single comma separated text file. Personally, I believe using
+                individual .txt files will lead to a cleaner implementation.
+
+                Option 1- Individual text files:
+                    #The NAME, EMAIL, PHONENUMBER variable we collected from the SEARCH CONTACT method can be passed as parameters to the EDIT CONTACT method.
+                    It might look somthing like this:
+
+                        def edit_contact(NAME, EMAIL, PHONENUMBER):
+                            change_contact = input(
+                            """What part of the contact would you like to change?
+                                            
+                            Name (1)
+                            Email (2)
+                            Phone Number (3)
+                            Cancel Changes (4)
+
+                            """)
+
+                            ***the four IF statments***
+                            ***the user input to change the variables NAME, EMAIL, PHONENUMBER***
+
+                            with open(OLDCONTACT.txt, "w") as file:
+                                file.write("NAME + EMAIL + PHONENUMBER)
+
+                    #The open(OLDCONTACT.txt, "w") method should delete the file contents making the code fairly simple. 
+                    If the user chooses the REMOVE CONTACT option, I think os.remove(+contact_removal+".txt") will work nicely
+
+                
+                
+                Option 2- Comma separated text file:
+                    #For the EDIT CONTACT function, changing the values is simple since the variables can be easily changed. To store the value in the file, using .replace() method should
+                    do the trick; essentially it might look like: .replace("OLD CONTACT STRING", "NEW CONTACT STRING"). That should delete the old contact and relace it with the new.
+
+                    #The REMOVE CONTACT option will use the .replace() method as well; however, it willl look like .relpace("OLDCONTACT STRING", "")
+
+
+
+
+        print(contact_file_edit.read())
+
+        change_contact = input(
+            """What part of the contact would you like to change?
+                               
+            Name (1)
+            Email (2)
+            Phone Number (3)
+            Cancel Changes (4)
+
+            """)
+
+        if change_contact == '1':
+
+            os.system('cls')
+
+            print("thisisaplaceholder")
+            #Here needs to be added the ability to change specific parts of the file in accordance with user request (name).
+        
+        if change_contact == '2':
+
+            os.system('cls')
+
+            print("thisisaplaceholder")
+            #Here needs to be added the ability to change specific parts of the file in accordance with user request (email).
+
+        if change_contact == '3':
+
+            os.system('cls')
+
+            print("thisisaplaceholder")
+            #Here needs to be added the ability to change specific parts of the file in accordance with user request (phone number).
+
+        else: 
+
+            os.system('cls')
+
+            input("Press Enter to Return to Home Screen.")
+
+
+
+def remove_contact():
+
+    os.system('cls')
+
+    global contact_removal
+    global correct_input
+
+    contact_removal = input("Enter Name of Contact you wish to Remove: ")
+
+    #Validate Input
+
+    os.system('cls')
+
+    correct_input = input("You Chose Contact "+ contact_removal +" is this Correct? Y or N? ")
+
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+
+        print ("Deleting Contact "+ contact_removal +"...")
+
+        os.remove(+contact_removal+".txt")
+
+        input("Press Enter to Return to Home Screen.")
+
+    else:
+
+        remove_contact()
