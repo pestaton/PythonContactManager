@@ -136,6 +136,8 @@ input_email()
 
         contact_dict = {"name": name, "phone": phone, "email": email}
 
+        input("Press Enter to Return the Home Screen.")
+
     #Here you would save the info to a file, which I believe Shuniya volunteered to do.
 contact.write(input)
     #Below function works to go through the function again if incorrect information is entered.
