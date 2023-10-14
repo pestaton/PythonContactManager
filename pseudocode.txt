@@ -38,6 +38,65 @@ The input and output variables for the most part be strings or dictionaries
 
 4. The above information is stored as a variable/dictionary, then it is added to the contacts file. 
 
+home_screen()
+
+from Add_Contact_Feature import add_contact
+from Search_Contact_Feature import search_contact
+from Edit_Contact_Feature import edit_contact
+from Remove_Contact_Feature import remove_contact
+import os
+
+def home_screen():
+
+    global home_selection_choice
+
+    os.system('cls')
+
+    home_selection_choice = input("""Welcome to Contact Manager    
+    
+    Add Contact (1)
+    Search Contact (2)
+    Edit Contact (3)
+    Remove Contact (4)
+    Exit (5)
+
+    """)
+
+    if home_selection_choice == '1':
+        
+        add_contact()
+
+        home_screen()
+
+    if home_selection_choice == '2':
+
+        search_contact()
+
+        home_screen()
+
+    if home_selection_choice == '3':
+
+        edit_contact()
+
+        home_screen()
+
+    if home_selection_choice == '4':
+
+        remove_contact()
+
+        home_screen()
+
+    if home_selection_choice == '5':
+
+        exit()
+
+    #Here needs to be exception for improper input.
+
+
+home_screen()
+
+
+
 add_contact()
 
 import os
@@ -146,19 +205,159 @@ contact.write(input)
         
         add_contact()
 
-search_contact()
-1. 
 
-2.
+
+search_contact()
+
+import os
+#Some preemptive comments to this sections of code!! *** IMPORTANT *** Since Shuniya is doing the file saving and loading, 
+#the amount of work I can do on this function is relatively limited. Wether we choose to save contacts as individual text files or not will change how this code will run.
+#For purposes of getting this function done I will use placeholder file names and the assumption that individual text files will be created for each contact.
+
+def search_contact():
+
+    os.system('cls')
+
+    global contact_search
+    global contact_file
+    global search_again
+
+    contact_search = input("Enter Contact Name: ")
+    
+    #Validate Input
+
+    os.system('cls')    
+
+    correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
+        
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+        
+        contact_file = open(+contact_search+".txt", "r")
+        
+        print(contact_file.read())
+
+        contact_file.close()
+
+        search_again = input("Do you wish to search for another contact? Y or N? ")
+
+        if correct_input == ("Y" or "y" or "Yes" or "yes"):
+
+            search_contact()
+
+        else:
+
+            input("Press Enter to Return to Home Screen.")
+
+    else:
+        search_contact()
+
+
 
 remove_contact()
-1. 
 
-2.
+import os
+
+def remove_contact():
+
+    os.system('cls')
+
+    global contact_removal
+    global correct_input
+
+    contact_removal = input("Enter Name of Contact you wish to Remove: ")
+
+    #Validate Input
+
+    os.system('cls')
+
+    correct_input = input("You Chose Contact "+ contact_removal +" is this Correct? Y or N? ")
+
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+
+        print ("Deleting Contact "+ contact_removal +"...")
+
+        os.remove(+contact_removal+".txt")
+
+        input("Press Enter to Return to Home Screen.")
+
+    else:
+
+        remove_contact()
+
+
 
 edit_contact()
-1.
 
-2.
+import os 
+
+def edit_contact():
+
+    global contact_file_edit
+    global contact_search
+    global correct_input
+    global change_contact
+
+    os.system('cls')
+
+    contact_search = input("Please Enter the Name of Contact you Wish to Edit: ")
+    
+    #Validate input
+
+    os.system('cls')    
+
+    correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
+
+    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+        
+        os.system('cls')
+
+        contact_file_edit = open(+contact_search+".txt","r")
+
+        #Cannot figure out how to make it open the file in a way where individual parts of the dictionary can be edited.
+
+        print(contact_file_edit.read())
+
+        change_contact = input(
+            """What part of the contact would you like to change?
+                               
+            Name (1)
+            Email (2)
+            Phone Number (3)
+            Cancel Changes (4)
+
+            """)
+
+        if change_contact == '1':
+
+            os.system('cls')
+
+            print("thisisaplaceholder")
+            #Here needs to be added the ability to change specific parts of the file in accordance with user request (name).
+        
+        if change_contact == '2':
+
+            os.system('cls')
+
+            print("thisisaplaceholder")
+            #Here needs to be added the ability to change specific parts of the file in accordance with user request (email).
+
+        if change_contact == '3':
+
+            os.system('cls')
+
+            print("thisisaplaceholder")
+            #Here needs to be added the ability to change specific parts of the file in accordance with user request (phone number).
+
+        else: 
+
+            os.system('cls')
+
+            input("Press Enter to Return to Home Screen.")
+
+
 
 4- Use exception handling for potential issues like the file not existing or invalid inputs.
