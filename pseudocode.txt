@@ -316,6 +316,49 @@ def edit_contact():
 
         #Cannot figure out how to make it open the file in a way where individual parts of the dictionary can be edited.
 
+                #I was thinking that if on the home screen we only give the user the options of ADD CONTACT, SEARCH CONTACT, and EXIT. Then if the user selects
+                SEARCH CONTACT the program will find that string for the contact and save it as three variables: NAME, EMAIL, PHONENUMBER (these variable names are for exaple purposes).
+                After the contact is found and displayed to the user, then the user can be given the option to EDIT CONTACT or REMOVE CONTACT. The cantact variables can be used
+                for the EDIT CONTACT function.
+
+                #The next part depends on if the contacts are store as individual .txt files or as a single comma separated text file. Personally, I believe using
+                individual .txt files will lead to a cleaner implementation.
+
+                Option 1- Individual text files:
+                    #The NAME, EMAIL, PHONENUMBER variable we collected from the SEARCH CONTACT method can be passed as parameters to the EDIT CONTACT method.
+                    It might look somthing like this:
+
+                        def edit_contact(NAME, EMAIL, PHONENUMBER):
+                            change_contact = input(
+                            """What part of the contact would you like to change?
+                                            
+                            Name (1)
+                            Email (2)
+                            Phone Number (3)
+                            Cancel Changes (4)
+
+                            """)
+
+                            ***the four IF statments***
+                            ***the user input to change the variables NAME, EMAIL, PHONENUMBER***
+
+                            with open(OLDCONTACT.txt, "w") as file:
+                                file.write("NAME + EMAIL + PHONENUMBER)
+
+                    #The open(OLDCONTACT.txt, "w") method should delete the file contents making the code fairly simple. 
+                    If the user chooses the REMOVE CONTACT option, I think os.remove(+contact_removal+".txt") will work nicely
+
+                
+                
+                Option 2- Comma separated text file:
+                    #For the EDIT CONTACT function, changing the values is simple since the variables can be easily changed. To store the value in the file, using .replace() method should
+                    do the trick; essentially it might look like: .replace("OLD CONTACT STRING", "NEW CONTACT STRING"). That should delete the old contact and relace it with the new.
+
+                    #The REMOVE CONTACT option will use the .replace() method as well; however, it willl look like .relpace("OLDCONTACT STRING", "")
+
+
+
+
         print(contact_file_edit.read())
 
         change_contact = input(
