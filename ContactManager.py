@@ -1,4 +1,5 @@
 import os
+contact_manager=open('contacts.txt', "w+" )
 
 #Create file for containing text files if it does not already exist.
 #Before anything else executes load the file containing all of the text files/contacts stored.
@@ -145,7 +146,8 @@ def add_contact():
         contact_dict = {"name": name, "phone": phone, "email": email}
 
          #Here you would save the info to a file, which I believe Shuniya volunteered to do.
-
+      contact_dict=[name,phone,email]
+        contact_manager.write(contact_dict)
         input("Press Enter to Return the Home Screen.")
 
         #Below function works to go through the function again if incorrect information is entered.
@@ -272,21 +274,32 @@ def edit_contact():
 
             print("thisisaplaceholder")
             #Here needs to be added the ability to change specific parts of the file in accordance with user request (name).
-        
+         print("Here is the current name of the contact")
+        print(name)
+        new_name=input("please enter the new name ")
+        contact_dict[name]=new_name
         if change_contact == '2':
 
             os.system('cls')
 
             print("thisisaplaceholder")
             #Here needs to be added the ability to change specific parts of the file in accordance with user request (email).
-
+contact_dict[name,email,phone]
+        print('this is the current email in tha contact')
+        print(email)
+        new_email= input("please neter the new email")
+        contact_dict[email]=new_email
         if change_contact == '3':
 
             os.system('cls')
 
             print("thisisaplaceholder")
             #Here needs to be added the ability to change specific parts of the file in accordance with user request (phone number).
-
+contact_dict[name,email,phone]
+        print('this is the current phone number in the contact')
+        print(phone)
+        new_phone=input('please enter the new phone number')
+        contact_dict[phone]=new_phone
         else: 
 
             os.system('cls')
