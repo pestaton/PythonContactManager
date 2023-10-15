@@ -1,5 +1,12 @@
 import os
-contact_manager=open('contacts.txt', "w+" )
+import os.path 
+path='contacts'
+check_file=os.path.isfile(path)
+
+print(check_file)
+
+
+contact_manager=open('contacts', "w" ) 
 
 #Create file for containing text files if it does not already exist.
 #Before anything else executes load the file containing all of the text files/contacts stored.
