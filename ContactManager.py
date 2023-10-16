@@ -197,18 +197,31 @@ def search_contact():
     #Validate Input
 
     if correct_input == ("Y" or "y" or "Yes" or "yes"):
-        
+        file_root = os.path.dirname(__file__)
+
+        global name
+        global phone
+        global email
+
         os.system('cls')
+
+        with open(file_root + "\\" + contact_search + ".txt", "r") as file:
+
+            contact_file = file.read()
+
+            info_list = contact_file.strip('][').split(', ')
         
-        contact_file = open(+contact_search+".txt", "r")
-        
-        print(contact_file.read())
+        name = info_list[0]
+        phone = info_list[1]
+        email = info_list[2]
+
+        print (f"Contact found.\nPhone number: "+ name +", Name: "+ phone +", Email: "+ email +".")
 
         search_again = input("""
         
         Search for Another Contact (1)
         Edit Contact (2)
-        Delete Contact (3)                  
+        Delete Contact (3)                 
         Return to Home Screen (4) 
                              
         """)
@@ -237,6 +250,8 @@ def search_contact():
 
     else:
         search_contact()
+
+
 
 
 def edit_contact():
