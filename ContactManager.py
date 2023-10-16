@@ -1,13 +1,13 @@
 import os
 #Create file for containing text files if it does not already exist.
 #Before anything else executes load the file containing all of the text files/contacts stored.
-
+search_file_path = ""
 
 #Some preemptive comments to this sections of code!! *** IMPORTANT *** Since Shuniya is doing the file saving and loading, 
 #the amount of work I can do on this function is relatively limited. Wether we choose to save contacts as individual text files or not will change how this code will run.
 #For purposes of getting this function done I will use placeholder file names and the assumption that individual text files will be created for each contact.
 
-#home_screen() sorta works
+#search_contact() works
 def search_contact():
 
     os.system('cls')
@@ -32,6 +32,9 @@ def search_contact():
         global name
         global phone
         global email
+        global search_file_path
+
+        search_file_path = os.path.dirname(__file__) + "\\" + contact_search + ".txt"
 
         os.system('cls')
 
@@ -77,11 +80,12 @@ def search_contact():
         else:
 
             input("Press Enter to Return to Home Screen.")
+            home_screen()
 
     else:
         search_contact()
 
-#add_screen() works
+#add_contact() works
 def add_contact():
 
     os.system('cls')
@@ -199,103 +203,69 @@ def add_contact():
 
         add_contact()
 
-
+#Edit_contact() works
 def edit_contact():
 
-    global contact_file_edit
-    global contact_search
-    global correct_input
-    global change_contact
+    global name
+    global phone
+    global email
 
     os.system('cls')
 
-    contact_search = input("Please Enter the Name of Contact you Wish to Edit: ")
-    
-    #Validate input
+    print (f"Pending changes:\nPhone number: "+ name +", Name: "+ phone +", Email: "+ email +".")
 
-    os.system('cls')    
+    change_contact = input(
 
-    correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
-    
-    #Validate input
-
-    if correct_input == ("Y" or "y" or "Yes" or "yes"):
-        
-        os.system('cls')
-
-        with open(+contact_search+".txt", "w") as oldcontact:
-
-            print(oldcontact.read())
-
-            #Here needs to be a way to convert the file information to dictionary form or pull it directly as dictionary form, seperating it into the three variables: name, email, phone number.
-        
-        change_contact = input(
-
-        """What part of the contact would you like to change?
+    """What part of the contact would you like to change?
                                             
-        Name (1)
-        Email (2)
-        Phone Number (3)
-        Cancel Changes (4)
+    Name (1)
+    Email (2)
+    Phone Number (3)
+    Confirm Changes (4)
 
-        """)
+    """)
 
         #Validate inputs
 
-        if change_contact == '1':
+    if change_contact == '1':
+        name = input("Input new name: ")
+        edit_contact()
+    
 
-            os.system('cls')
-        
-            print("Saved information to Contacts.")
+    if change_contact == '2':
+        phone = input("Input new name: ")
+        edit_contact()        
+       
 
-            print("thisisaplaceholder")
-         #Here needs to be added the ability to change specific parts of the file in accordance with user request (name).
-            print("Here is the current name of the contact")
-            print(name)
-            new_name=input("please enter the new name ")
-            contact_dict[name]=new_name
-        if change_contact == '2':
+    if change_contact == '3':
+        email = input("Input new name: ")
+        edit_contact()
+    
 
-            os.system('cls')
+    if change_contact == '4':  #********THIS DOES NOT OVERWRITE THE ORIGINAL FILE. IT WILL SAVE A NEW FILE USING NAME.TXT********
+                                #LIKELY WE WILL NEED TO USE THE os.remove() FUNTION TO DELETE THE OLD FILE
+        def save_contact():
+            file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is saved)
+            global name
+            global phone
+            global email
 
-            print("thisisaplaceholder")
-            #Here needs to be added the ability to change specific parts of the file in accordance with user request (email).
-            contact_dict[name,email,phone]
-            print('this is the current email in tha contact')
-            print(email)
-            new_email= input("please neter the new email")
-            contact_dict[email]=new_email
-        if change_contact == '3':
+            contact_dict=[name ,email, phone]
+            with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
+                file.write(str(contact_dict)) #saves the array as a string.
 
-            os.system('cls')
-
-            print("thisisaplaceholder")
-            #Here needs to be added the ability to change specific parts of the file in accordance with user request (phone number).
-            contact_dict[name,email,phone]
-            print('this is the current phone number in the contact')
-            print(phone)
-            new_phone=input('please enter the new phone number')
-            contact_dict[phone]=new_phone
-        else:
-            os.system('cls')
-            input("Press Enter to Return to Home Screen.")
-            home_screen()
+        save_contact()
 
 
 def remove_contact():
-
     os.system('cls')
+    
+    global search_file_path
+    global name
 
-    global contact_removal
-    global correct_input
+    print(search_file_path)
 
-    contact_removal = input("Enter Name of Contact you wish to Remove: ")
-
-    #Validate Input
-
-    os.system('cls')
-
-    correct_input = input("You Chose Contact "+ contact_removal +" is this Correct? Y or N? ")
+    correct_input = input("You Chose Contact "+ name +" is this Correct? Y or N? ")
 
     #Validate Input
 
@@ -303,9 +273,9 @@ def remove_contact():
         
         os.system('cls')
 
-        print ("Deleting Contact "+ contact_removal +"...")
+        print ("Deleting Contact "+ name +"...")
 
-        os.remove(+contact_removal+".txt")
+        os.remove(search_file_path)
 
         input("Press Enter to Return to Home Screen.")
 
