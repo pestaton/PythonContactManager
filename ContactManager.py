@@ -146,72 +146,11 @@ def add_contact():
     global phone
     global email
 
-    def input_name():
-        
-        os.system('cls')
-       
-        global name 
-        
-        name = input("Enter Name: ")
-        
-        if name.replace(" ", "").isalpha():
-            
-            print("Hello, " + name)
-        
-        else:
-            
-            print("Invalid name. Please, use only letters and spaces (e.g. John Doe)")
-            
-            input_name()
+    
     input_name()
 
-    def input_phone():
-    
-        global phone
-
-        os.system('cls')
-
-        phone = input("Enter your phone number: ")
-
-        no_hyphen = phone.replace("-", "")
-
-        ##checks to see if only digits and hyphens were entered.
-
-        if no_hyphen.isdigit() and len(no_hyphen) == 10:
-
-        ##reformatting of the phone number
-
-            phone = no_hyphen[0] + no_hyphen[1] + no_hyphen[2] + "-" + no_hyphen[3] + no_hyphen[4] + no_hyphen[5] + "-" + no_hyphen[6] + no_hyphen[7] + no_hyphen[8] + no_hyphen[9]
-
-            print("Your number is: " + phone)
-        
-        else:
-        
-            print("Invalid phone number. Please, use the following format: 123-456-7890")
-        
-            input_phone()
     input_phone()
-        
-    def input_email():
-    
-        global email
 
-        os.system('cls')
-
-        email = input("Enter your email: ")
-
-        if email.count("@") == 1:
-
-            if email.count(".") < 1:
-
-                print("Invalid email. Please check that your email is typed in correctly. The email requires at least one period.")
-                input_email()
-
-        else:
-    
-            print("Invalid email. Please check that your email is typed in correctly. The email requires a single amperstand.")
-
-            input_email()
     input_email()
     
 
@@ -273,17 +212,26 @@ def edit_contact():
         #Validate inputs
 
     if change_contact_edit == '1':
-        name = input("Input new name: ")
+        #name = input("Input new name: ")
+
+        input_name()
+        
         edit_contact()
     
 
     if change_contact_edit == '2':
-        phone = input("Input new phone number: ")
+        #phone = input("Input new phone number: ")
+
+        input_phone()
+
         edit_contact()        
        
 
     if change_contact_edit == '3':
-        email = input("Input new email: ")
+        #email = input("Input new email: ")
+
+        input_email()
+
         edit_contact()
     
 
@@ -291,7 +239,6 @@ def edit_contact():
           
                         #LIKELY WE WILL NEED TO USE THE os.remove() FUNTION TO DELETE THE OLD FILE
         after_edit()
-
 
 def remove_contact():
     os.system('cls')
@@ -355,5 +302,70 @@ def home_screen():
 
         exit()
 
+def input_name():
+    os.system('cls')
+       
+    global name 
+        
+    name = input("Enter Name: ")
+        
+    if name.replace(" ", "").isalpha():
+            
+        print("Hello, " + name)
+        
+    else:
+            
+        print("Invalid name. Please, use only letters and spaces (e.g. John Doe)")
+            
+        input_name()
+    
+def input_phone():
+    global phone
+
+    os.system('cls')
+
+    phone = input("Enter your phone number: ")
+
+    no_hyphen = phone.replace("-", "")
+
+    ##checks to see if only digits and hyphens were entered.
+
+    if no_hyphen.isdigit() and len(no_hyphen) == 10:
+
+    ##reformatting of the phone number
+
+        phone = no_hyphen[0] + no_hyphen[1] + no_hyphen[2] + "-" + no_hyphen[3] + no_hyphen[4] + no_hyphen[5] + "-" + no_hyphen[6] + no_hyphen[7] + no_hyphen[8] + no_hyphen[9]
+
+        print("Your number is: " + phone)
+        
+    else:
+        
+        print("Invalid phone number. Please, use the following format: 123-456-7890")
+        
+        input_phone()
+        
+def input_email():
+    
+    global email
+
+    os.system('cls')
+
+    email = input("Enter your email: ")
+
+    if email.count("@") == 1:
+
+        if email.count(".") < 1:
+
+            print("Invalid email. Please check that your email is typed in correctly. The email requires at least one period.")
+            input_email()
+
+    else:
+    
+        print("Invalid email. Please check that your email is typed in correctly. The email requires a single amperstand.")
+
+        input_email()
+    
 
 home_screen()
+
+
