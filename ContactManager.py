@@ -1,20 +1,16 @@
+#Import the required libraries for the program to function.
 import os
 import copy
 
+#Declare variables that are used in multiple functions and do not require user input to be generated.
 old_contact_name = 0
 file_root = os.path.dirname(__file__)
-#Create file for containing text files if it does not already exist.
-#Before anything else executes load the file containing all of the text files/contacts stored.
 
 
-#Some preemptive comments to this sections of code!! *** IMPORTANT *** Since Shuniya is doing the file saving and loading, 
-#the amount of work I can do on this function is relatively limited. Wether we choose to save contacts as individual text files or not will change how this code will run.
-#For purposes of getting this function done I will use placeholder file names and the assumption that individual text files will be created for each contact.
-
-#search_contact() works
 
 def after_edit():
 
+    #Remove old contact file.
     os.remove(file_root + "\\" + old_contact_name + ".txt")
 
     save_contact()
@@ -29,86 +25,146 @@ def save_contact():
         contact_dict=[name ,email, phone]
         with open(file_root + "\\" + name.replace("'","") + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
             file.write(str(contact_dict))
+        
+        os.system('cls')
+
+        input("Contact Saved Press Enter to Return.")
+
+        home_screen()
+
+
+
+def search_fail():
+
+    os.system('cls')
+
+    global search_contact_fail
+
+    search_contact_fail = input("""
+    This Contact Does Not Exist or Was Not Attempted to be Accessed.
+                                            
+    Search Contact Again (1)
+    Return to Home Screen (2)
+                    
+    """)
+
+    if search_contact_fail == '1':
+
+        search_contact()
+
+    if search_contact_fail == '2':
+
+        home_screen()
+                
+    else:
+                    
+        os.system('cls')
+
+        input("Invalid Input Press Enter to Continue.")
+
+        search_fail()
 
 
 
 def search_contact():
+
+    file_root = os.path.dirname(__file__)
 
     os.system('cls')
 
     global old_contact_name
     global contact_search
     global contact_file
-    global search_again
 
     contact_search = input("Enter Contact Name: ")
     
-    #Validate Input
+    if os.path.exists(file_root + "\\" + contact_search + ".txt"):
 
-    os.system('cls')    
+        os.system('cls')    
 
-    correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
+        correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
 
-    #Validate Input
-    
-    if correct_input == ("Y" or "y" or "Yes" or "yes"):
-        file_root = os.path.dirname(__file__)
+        if correct_input == 'Y':
 
-        global name
-        global phone
-        global email
-        global search_file_path
+            global name
+            global phone
+            global email
+            global search_file_path
 
-        search_file_path = os.path.dirname(__file__) + "\\" + contact_search + ".txt"
+            search_file_path = os.path.dirname(__file__) + "\\" + contact_search + ".txt"
 
-        os.system('cls')
-    
+            os.system('cls')
+
+        else:
+
+            os.system('cls')
+
+            input("Please Press Enter to Return.")
+
+            search_fail()
+
         try:
-
-            
 
             with open(file_root + "\\" + contact_search + ".txt", "r") as file:
 
                 contact_file = file.read()
 
                 info_list = contact_file.replace('"','').strip('][').split(', ')
-        
-        except:
-            
-            search_contact_fail = input("""
-            This Contact Does Not Exist.
-                                        
-            Search Contact Again (1)
-            Return to Home Screen (2)
-                  
-            """)
 
-            if search_contact_fail == '1':
+                name = info_list[0]
+                email = info_list[1]
+                phone = info_list[2]
+
+        except:
+
+            search_fail()
+
+    else:
+
+        os.system('cls')
+        def inc_spelling():
+
+            incorrect_spelling = input("""
+                
+                The File """ + contact_search + " Does Not Exist, Please Check Spelling. "
+                
+                """\n
+                Search Again (1)  
+                Go to Home Menu (2)  
+                
+                """)
+            
+            if incorrect_spelling == '1':
 
                 search_contact()
 
-            if search_contact_fail == '2':
+            if incorrect_spelling == '2':
 
                 home_screen()
 
-            
+            else:
 
-        name = info_list[0]
-        phone = info_list[1]
-        email = info_list[2]
+                input("Invalid Input Press Enter to Continue")
 
-        print (f"Contact found.\nPhone number: "+ name +", Name: "+ phone +", Email: "+ email +".")
+                inc_spelling()
+        
+        inc_spelling()
+
+    def search_again_menu():
+
+        os.system('cls')
+
+        print (f"Contact found.\nName: "+ name.replace("'","") +", Phone Number: "+ phone.replace("'","") +", Email: "+ email.replace("'","") +".")
 
         search_again = input("""
-        
+            
         Search for Another Contact (1)
         Edit Contact (2)
         Delete Contact (3)                 
         Return to Home Screen (4) 
-                             
+                                
         """)
 
-        #Validate Inputs
 
         if search_again == '1':
 
@@ -130,18 +186,16 @@ def search_contact():
 
             os.system('cls')
 
-            input("Press Enter to Return to Home Screen.")
-            home_screen()
+            input("Press Enter to Return.")
 
-    else:
-        search_contact()
+            search_again_menu()
 
-#add_contact() works
+    search_again_menu()
+
 def add_contact():
 
     os.system('cls')
 
-    global correct_input
     global name
     global phone
     global email
@@ -156,35 +210,35 @@ def add_contact():
 
     os.system('cls')
 
-    print (f"You entered. Phone number: "+ name +", Name: "+ phone +", Email: "+ email +".")
+    def cor_input():
 
-    correct_input = input("Is this information correct? Y or N? ")
+        global correct_input
 
-    #Validate Inputs
+        os.system('cls')
 
-    #Save to dict if Information is correct. 
+        print (f"You entered. Name: "+ name +", Phone Number: "+ phone +", Email: "+ email +".")
 
-    if correct_input == ('Y'):
+        correct_input = input("Is this information correct? Y or N? ")
+
+        if correct_input == ('Y'):
             
-        os.system('cls')
+            os.system('cls')
+
+            save_contact()
+
+            home_screen()
         
-    #Here you would save the info to a file, which I believe Shuniya volunteered to do. #saves the array as a string.
+        else:
 
-        save_contact()
-        
-        print("Saved information to Contacts.")
+            os.system('cls')
 
-        #Below function works to go through the function again if incorrect information is entered.
+            input("Invalid Input Please Press Enter to Return.")
 
-    else:
+            cor_input()
 
-        os.system('cls')
+    cor_input()
 
-        input("Invalid Input Please Press Enter to Return.")
 
-        add_contact()
-
-#Edit_contact() works
 def edit_contact():
 
     global old_contact_name
@@ -196,11 +250,11 @@ def edit_contact():
 
     os.system('cls')
 
-    print (f"Pending changes:\nName:"  + name + ", Phone Number: "+ phone +", Email: "+ email +".")
+    print (f"Pending changes:\nName: "  + name.replace("'","") + ", Phone Number: "+ phone.replace("'","") +", Email: "+ email.replace("'","") +".")
 
-    change_contact_edit = input(
+    change_contact_edit = input("""
 
-    """What part of the contact would you like to change?
+    What part of the contact would you like to change?
                                             
     Name (1)
     Phone Number (2)
@@ -208,8 +262,6 @@ def edit_contact():
     Confirm Changes (4)
 
     """)
-
-        #Validate inputs
 
     if change_contact_edit == '1':
         #name = input("Input new name: ")
@@ -235,10 +287,11 @@ def edit_contact():
         edit_contact()
     
 
-    if change_contact_edit == '4':  #********THIS DOES NOT OVERWRITE THE ORIGINAL FILE. IT WILL SAVE A NEW FILE USING NAME.TXT********
-          
-                        #LIKELY WE WILL NEED TO USE THE os.remove() FUNTION TO DELETE THE OLD FILE
+    if change_contact_edit == '4':  
+                    
         after_edit()
+
+
 
 def remove_contact():
     os.system('cls')
@@ -246,13 +299,10 @@ def remove_contact():
     global search_file_path
     global name
 
-    print(search_file_path)
 
-    correct_input = input("You Chose Contact "+ name +" is this Correct? Y or N? ")
+    correct_input = input("You Chose to Delete Contact "+ name +" is this Correct? Y or N? ")
 
-    #Validate Input
-
-    if correct_input.lower == "y":
+    if correct_input == 'Y':
         
         os.system('cls')
 
@@ -262,11 +312,40 @@ def remove_contact():
 
         input("Press Enter to Return to Home Screen.")
 
+        home_screen()
+
     else:
+        def bypass():
+            
+            os.system('cls')
 
-        remove_contact()
+            bypass_input = input(""" 
+                
+                Bypassing Deletion 
 
-#home_screen() works
+                Remove Different Contact (1)
+                Go to Home Screen (2)
+                
+                """)
+            
+            if bypass_input == '1':
+
+                search_contact()
+            
+            if bypass_input == '2':
+
+                home_screen()
+            
+            else:
+
+                input("Invalid Input Press Enter to Continue")
+
+                bypass()
+        
+        bypass()
+
+
+
 def home_screen():
 
     global home_selection_choice
@@ -282,8 +361,6 @@ def home_screen():
 
     """)
 
-    #Input Validation
-
     if home_selection_choice == '1':
         
         add_contact()
@@ -298,11 +375,18 @@ def home_screen():
 
     if home_selection_choice == '3':
 
-        #Close the file that houses all of the contacts.
-
         exit()
+    
+    else:
+
+        os.system('cls')
+
+        input("Invalid Input Press Enter to Continue")
+
+        home_screen()
 
 def input_name():
+    
     os.system('cls')
        
     global name 
@@ -324,7 +408,7 @@ def input_phone():
 
     os.system('cls')
 
-    phone = input("Enter your phone number: ")
+    phone = input("Enter phone number: ")
 
     no_hyphen = phone.replace("-", "")
 
@@ -350,7 +434,7 @@ def input_email():
 
     os.system('cls')
 
-    email = input("Enter your email: ")
+    email = input("Enter email: ")
 
     if email.count("@") == 1:
 
