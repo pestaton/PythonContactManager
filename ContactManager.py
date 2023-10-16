@@ -1,8 +1,6 @@
 import os
 #Create file for containing text files if it does not already exist.
 #Before anything else executes load the file containing all of the text files/contacts stored.
-search_file_path = ""
-
 
 
 #Some preemptive comments to this sections of code!! *** IMPORTANT *** Since Shuniya is doing the file saving and loading, 
@@ -10,6 +8,19 @@ search_file_path = ""
 #For purposes of getting this function done I will use placeholder file names and the assumption that individual text files will be created for each contact.
 
 #search_contact() works
+
+def save_contact():
+            file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is saved)
+            global name
+            global phone
+            global email
+
+            contact_dict=[name ,email, phone]
+            with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
+                file.write(str(contact_dict))
+
+
+
 def search_contact():
 
     os.system('cls')
@@ -201,20 +212,11 @@ def add_contact():
 
     #Save to dict if Information is correct. 
 
-    if correct_input.lower == "y":
+    if correct_input == ('Y'):
             
         os.system('cls')
         
-    #Here you would save the info to a file, which I believe Shuniya volunteered to do.
-        def save_contact():
-            file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is saved)
-            global name
-            global phone
-            global email
-
-            contact_dict=[name ,email, phone]
-            with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
-                file.write(str(contact_dict)) #saves the array as a string.
+    #Here you would save the info to a file, which I believe Shuniya volunteered to do. #saves the array as a string.
 
         save_contact()
         
@@ -236,8 +238,6 @@ def edit_contact():
     global name
     global phone
     global email
-
-    store_name = name
 
     os.system('cls')
 
@@ -262,28 +262,17 @@ def edit_contact():
     
 
     if change_contact_edit == '2':
-        phone = input("Input new name: ")
+        phone = input("Input new phone number: ")
         edit_contact()        
        
 
     if change_contact_edit == '3':
-        email = input("Input new name: ")
+        email = input("Input new email: ")
         edit_contact()
     
 
-    if change_contact_edit == '9':  #********THIS DOES NOT OVERWRITE THE ORIGINAL FILE. IT WILL SAVE A NEW FILE USING NAME.TXT********
+    if change_contact_edit == '4':  #********THIS DOES NOT OVERWRITE THE ORIGINAL FILE. IT WILL SAVE A NEW FILE USING NAME.TXT********
                                 #LIKELY WE WILL NEED TO USE THE os.remove() FUNTION TO DELETE THE OLD FILE
-        print("test")
-        file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is save
-
-
-
-        contact_dict=[name ,email, phone]
-        with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
-            file.write(str(contact_dict)) #saves the array as a string.
-
-
-
         save_contact()
 
 
