@@ -1,4 +1,8 @@
 import os
+import copy
+
+old_contact_name = 0
+file_root = os.path.dirname(__file__)
 #Create file for containing text files if it does not already exist.
 #Before anything else executes load the file containing all of the text files/contacts stored.
 
@@ -9,15 +13,22 @@ import os
 
 #search_contact() works
 
-def save_contact():
-            file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is saved)
-            global name
-            global phone
-            global email
+def after_edit():
 
-            contact_dict=[name ,email, phone]
-            with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
-                file.write(str(contact_dict))
+    os.remove(file_root + "\\" + old_contact_name + ".txt")
+
+    save_contact()
+
+
+def save_contact():
+
+        global name    
+        global phone
+        global email
+
+        contact_dict=[name ,email, phone]
+        with open(file_root + "\\" + name.replace("'","") + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
+            file.write(str(contact_dict))
 
 
 
@@ -25,6 +36,7 @@ def search_contact():
 
     os.system('cls')
 
+    global old_contact_name
     global contact_search
     global contact_file
     global search_again
@@ -59,7 +71,7 @@ def search_contact():
 
                 contact_file = file.read()
 
-                info_list = contact_file.strip('][').split(', ')
+                info_list = contact_file.replace('"','').strip('][').split(', ')
         
         except:
             
@@ -115,7 +127,8 @@ def search_contact():
             home_screen()
 
         else:
-            print("test")
+
+            os.system('cls')
 
             input("Press Enter to Return to Home Screen.")
             home_screen()
@@ -235,21 +248,24 @@ def add_contact():
 #Edit_contact() works
 def edit_contact():
 
+    global old_contact_name
     global name
     global phone
     global email
 
+    old_contact_name = copy.deepcopy(contact_search)
+
     os.system('cls')
 
-    print (f"Pending changes:\nPhone number: "+ name +", Name: "+ phone +", Email: "+ email +".")
+    print (f"Pending changes:\nName:"  + name + ", Phone Number: "+ phone +", Email: "+ email +".")
 
     change_contact_edit = input(
 
     """What part of the contact would you like to change?
                                             
     Name (1)
-    Email (2)
-    Phone Number (3)
+    Phone Number (2)
+    Email (3)
     Confirm Changes (4)
 
     """)
@@ -272,8 +288,9 @@ def edit_contact():
     
 
     if change_contact_edit == '4':  #********THIS DOES NOT OVERWRITE THE ORIGINAL FILE. IT WILL SAVE A NEW FILE USING NAME.TXT********
-                                #LIKELY WE WILL NEED TO USE THE os.remove() FUNTION TO DELETE THE OLD FILE
-        save_contact()
+          
+                        #LIKELY WE WILL NEED TO USE THE os.remove() FUNTION TO DELETE THE OLD FILE
+        after_edit()
 
 
 def remove_contact():
