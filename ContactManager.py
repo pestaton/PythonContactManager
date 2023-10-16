@@ -145,19 +145,23 @@ def add_contact():
     #Save to dict if Information is correct. 
 
     if correct_input == ("Y" or "y" or "Yes" or "yes"):
-        
+            
         os.system('cls')
-
-        print("Saving information to Contacts...")
-
-        contact_dict = {"name": name, "phone": phone, "email": email}
-
-         #Here you would save the info to a file, which I believe Shuniya volunteered to do.
-        contact_dict=[name,email,phone]
-        file_name=input("please enter the name of your contact")
-        contact_manager.open(file_name.txt,'w')
         
-        input("Press Enter to Return the Home Screen.")
+    #Here you would save the info to a file, which I believe Shuniya volunteered to do.
+        def save_contact():
+            file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is saved)
+            global name
+            global phone
+            global email
+
+            contact_dict=[name ,email, phone]
+            with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
+                file.write(str(contact_dict)) #saves the array as a string.
+
+        save_contact()
+        
+        print("Saved information to Contacts.")
 
         #Below function works to go through the function again if incorrect information is entered.
 
@@ -280,40 +284,42 @@ def edit_contact():
         if change_contact == '1':
 
             os.system('cls')
+        
+        print("Saved information to Contacts.")
 
             print("thisisaplaceholder")
             #Here needs to be added the ability to change specific parts of the file in accordance with user request (name).
-         print("Here is the current name of the contact")
-        print(name)
-        new_name=input("please enter the new name ")
-        contact_dict[name]=new_name
+            print("Here is the current name of the contact")
+            print(name)
+            new_name=input("please enter the new name ")
+            contact_dict[name]=new_name
         if change_contact == '2':
 
             os.system('cls')
 
             print("thisisaplaceholder")
             #Here needs to be added the ability to change specific parts of the file in accordance with user request (email).
-contact_dict[name,email,phone]
-        print('this is the current email in tha contact')
-        print(email)
-        new_email= input("please neter the new email")
-        contact_dict[email]=new_email
+            contact_dict[name,email,phone]
+            print('this is the current email in tha contact')
+            print(email)
+            new_email= input("please neter the new email")
+            contact_dict[email]=new_email
         if change_contact == '3':
 
             os.system('cls')
 
             print("thisisaplaceholder")
             #Here needs to be added the ability to change specific parts of the file in accordance with user request (phone number).
-contact_dict[name,email,phone]
-        print('this is the current phone number in the contact')
-        print(phone)
-        new_phone=input('please enter the new phone number')
-        contact_dict[phone]=new_phone
-        else: 
-
+            contact_dict[name,email,phone]
+            print('this is the current phone number in the contact')
+            print(phone)
+            new_phone=input('please enter the new phone number')
+            contact_dict[phone]=new_phone
+        else:
             os.system('cls')
-
             input("Press Enter to Return to Home Screen.")
+            home_screen()
+
 
 
 
