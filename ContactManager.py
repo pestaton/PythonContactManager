@@ -153,8 +153,10 @@ def add_contact():
         contact_dict = {"name": name, "phone": phone, "email": email}
 
          #Here you would save the info to a file, which I believe Shuniya volunteered to do.
-      contact_dict=[name,phone,email]
-        contact_manager.write(contact_dict)
+        contact_dict=[name,email,phone]
+        file_name=input("please enter the name of your contact")
+        contact_manager.open(file_name.txt,'w')
+        
         input("Press Enter to Return the Home Screen.")
 
         #Below function works to go through the function again if incorrect information is entered.
