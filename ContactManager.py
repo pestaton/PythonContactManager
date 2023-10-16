@@ -86,7 +86,6 @@ def add_contact():
 
     os.system('cls')
 
-    global contact_dict
     global correct_input
     global name
     global phone
