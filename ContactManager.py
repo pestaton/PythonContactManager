@@ -1,7 +1,10 @@
 import os
 #Create file for containing text files if it does not already exist.
 #Before anything else executes load the file containing all of the text files/contacts stored.
-search_file_path = ""
+search_file_path = "Contacts
+
+if not os.path.exists('Contacts'):
+    os.mkdir('Contacts')
 
 #Some preemptive comments to this sections of code!! *** IMPORTANT *** Since Shuniya is doing the file saving and loading, 
 #the amount of work I can do on this function is relatively limited. Wether we choose to save contacts as individual text files or not will change how this code will run.
