@@ -27,7 +27,7 @@ def search_contact():
     correct_input = input("You are searching for contact "+ contact_search +". Is this correct? Y or N? ")
 
     #Validate Input
-
+    
     if correct_input == ("Y" or "y" or "Yes" or "yes"):
         file_root = os.path.dirname(__file__)
 
@@ -39,13 +39,37 @@ def search_contact():
         search_file_path = os.path.dirname(__file__) + "\\" + contact_search + ".txt"
 
         os.system('cls')
+    
+        try:
 
-        with open(file_root + "\\" + contact_search + ".txt", "r") as file:
+            
 
-            contact_file = file.read()
+            with open(file_root + "\\" + contact_search + ".txt", "r") as file:
 
-            info_list = contact_file.strip('][').split(', ')
+                contact_file = file.read()
+
+                info_list = contact_file.strip('][').split(', ')
         
+        except:
+            
+            search_contact_fail = input("""
+            This Contact Does Not Exist.
+                                        
+            Search Contact Again (1)
+            Return to Home Screen (2)
+                  
+            """)
+
+            if search_contact_fail == '1':
+
+                search_contact()
+
+            if search_contact_fail == '2':
+
+                home_screen()
+
+            
+
         name = info_list[0]
         phone = info_list[1]
         email = info_list[2]
@@ -177,7 +201,7 @@ def add_contact():
 
     #Save to dict if Information is correct. 
 
-    if correct_input.lower() == "y": ###Only uppercase Y work
+    if correct_input.lower == "y":
             
         os.system('cls')
         
@@ -252,14 +276,15 @@ def edit_contact():
         print("test")
         file_root = os.path.dirname(__file__)  #gets the folder directory name for current program(whereever the contactmanager.py is save
 
-        file_root = os.path.dirname(__file__)
-         #os.remove(file_root + "\\" + store_name + ".txt")
-        print(file_root + "\\" + store_name + ".txt")
+
 
         contact_dict=[name ,email, phone]
         with open(file_root + "\\" + name + ".txt",'w') as file: #concatenates the folder directory name, the input name, and .txt; a file is created here. (IF THIS FILE EXISTS, THEN IT WILL BE DELETED!!!!!!)
             file.write(str(contact_dict)) #saves the array as a string.
 
+
+
+        save_contact()
 
 
 def remove_contact():
@@ -274,7 +299,7 @@ def remove_contact():
 
     #Validate Input
 
-    if correct_input == ("Y" or "y" or "Yes" or "yes"):
+    if correct_input.lower == "y":
         
         os.system('cls')
 
